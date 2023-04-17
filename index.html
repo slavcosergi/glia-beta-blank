@@ -3,7 +3,18 @@
 
 <head>
   <meta charset="utf-8">
-   <script>
+  <script>
+		//Read idtoken from query parameter with the same name.
+		const params = new Proxy(new URLSearchParams(window.location.search), {
+			get: (searchParams, prop) => searchParams.get(prop),
+		});
+		const idToken = params.idtoken;
+		window.getGliaContext = () => ({ idToken });
+	</script>
+  
+  <script src="https://api.beta.salemove.com/salemove_integration.js"></script>
+  
+  <script>
     window.getGliaContext = function() {
       function extractQueryParamValueFromString(paramName, urlString) {
         var regex = new RegExp("[?|&]" + paramName + "=([^&]*)");
